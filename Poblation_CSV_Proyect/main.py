@@ -1,9 +1,8 @@
 import read_csv as rscv
-import grafic as grc
-import utiles as u
-
+import charts 
 menu = rscv.keys
-path = 'C:/Proyectos/PycharmProjects/Curso de Python (Comprehensions, Funciones y Manejo de Errores)/Poblation_Proyect/data.csv'
+path = 'C:/Users/lcavana/Documents/py-project/Poblation_CSV_Proyectdata.csv/data.csv'
+Continent = ['South America', 'North America', 'Asia', 'Europe', 'Africa', 'Oceania']
 
 def pintar_menu():
    for i in menu.items():
@@ -15,7 +14,7 @@ def Grafic_population():
     data = rscv.read_csv(path)
     if rscv.existencia_CCA3(data,name):
         labels,values, nombre = rscv.pais(data,name)
-        grc.generate_bar_chart(labels,values,'Poblacion de '+nombre)
+        charts.generate_bar_chart(labels,values,'Poblacion de '+nombre)
     else:
         print('CCA3 erroneo, ingrese uno correcto')
 
@@ -27,7 +26,7 @@ def grafic_column():
                 if columna not in (2,3,4,5):
                         data = rscv.read_csv(path)
                         labels, values,nombre = rscv.column(data,columna)
-                        grc.generate_bar_chart(labels,values,nombre)
+                        charts.generate_bar_chart(labels,values,nombre)
                 else:
                         print('el numero de la columna no puede ser 2,3,4 y 5')
         else:
@@ -35,6 +34,31 @@ def grafic_column():
     except ValueError:
         print('El valor ingresado no es un numero entero')
 
+def print_Continent():
+        print('*'*5+'Menu'+'*'*5)
+        for item in Continent:
+                print(item) 
+        print('*'*11)
+        user_continent = input('Elegi que continente desea visualizar => ')
+        if not user_continent.lower().title() in Continent:
+                print('Error, la opcion no se encuentra en la lista')
+                return None
+        return user_continent
+        
+
+def Grafic_Continent():
+        pintar_menu()
+        try: 
+                cont = print_Continent()
+                if not cont == None:
+                        data = rscv.read_csv(path)
+                        data = list(filter(lambda item:item['Continent']==cont,data))
+                        countries= list(map(lambda x:x[rscv.keys[3]],data))
+                        percentages= list(map(lambda x:x[rscv.keys[17]],data))
+                        charts.generate_pie_chart(countries, percentages)
+        except ValueError:
+                print('Error')
+
 
 if __name__ == '__main__':
-        grafic_column()
+        Grafic_Continent()
