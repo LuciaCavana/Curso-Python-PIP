@@ -1,7 +1,7 @@
 import read_csv as rscv
 import charts 
 menu = rscv.keys
-path = 'C:/Users/lcavana/Documents/py-project/Poblation_CSV_Proyectdata.csv/data.csv'
+path = './data.csv'
 Continent = ['South America', 'North America', 'Asia', 'Europe', 'Africa', 'Oceania']
 
 def pintar_menu():
@@ -27,7 +27,7 @@ def grafic_column():
                         data = rscv.read_csv(path)
                         labels, values,nombre = rscv.column(data,columna)
                         charts.generate_bar_chart(labels,values,nombre)
-                else:
+                else: 
                         print('el numero de la columna no puede ser 2,3,4 y 5')
         else:
                 print('El Numero de la columna no existe')
@@ -50,13 +50,12 @@ def Grafic_Continent():
         pintar_menu()
         try: 
                 cont = print_Continent()
-                print(cont)
                 if not cont == None:
                         data = rscv.read_csv(path)
                         data = list(filter(lambda item:item['Continent']==cont,data))
                         countries= list(map(lambda x:x[rscv.keys[3]],data))
                         percentages= list(map(lambda x:x[rscv.keys[17]],data))
-                        charts.generate_pie_chart(countries, percentages)
+                        charts.generate_bar_chart(countries, percentages, cont)
         except ValueError:
                 print('Error')
 
