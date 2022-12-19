@@ -43,13 +43,14 @@ def print_Continent():
         if not user_continent.lower().title() in Continent:
                 print('Error, la opcion no se encuentra en la lista')
                 return None
-        return user_continent
+        return user_continent.lower().title()
         
 
 def Grafic_Continent():
         pintar_menu()
         try: 
                 cont = print_Continent()
+                print(cont)
                 if not cont == None:
                         data = rscv.read_csv(path)
                         data = list(filter(lambda item:item['Continent']==cont,data))
