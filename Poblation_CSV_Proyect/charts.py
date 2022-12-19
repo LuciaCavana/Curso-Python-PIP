@@ -4,14 +4,18 @@ def generate_bar_chart(labels,values,name):
     fig,ax = plt.subplots()
     ax.bar(labels,values)
     plt.title(name)
+    plt.savefig(f'./imgs/{name}.png')
     plt.show() 
+    plt.close()
 
 
-def generate_pie_chart(labels, values):
+def generate_pie_chart(labels, values, name):
   fig, ax = plt.subplots()
   ax.pie(values, labels=labels)
   ax.axis('equal')
+  plt.savefig(f'./imgs/{name}.png')
   plt.show()
+  plt.close()
 
 if __name__ == '__main__':
   labels = ['a', 'b', 'c']
